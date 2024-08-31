@@ -148,7 +148,7 @@ CUSTOMER ?= seeed
 # ei_standalone_inferencing_camera
 # edge_impulse_firmware
 ##
-APP_TYPE = allon_sensor_tflm
+APP_TYPE = sscma
  
 ### Options above must be added before include options.mk ###
 override EPII_ROOT := $(strip $(subst \,/,$(EPII_ROOT)))

@@ -273,3 +273,15 @@ int main(void)
 }
 #endif
 
+#ifdef SSCMA
+#include "__sscma.h"
+
+/** main entry */
+int main(void)
+{
+	board_init();
+	app_main();
+	return 0;
+}
+#endif
+
