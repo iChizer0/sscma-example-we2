@@ -89,7 +89,12 @@ SECTIONS
         __rodata_end = .;
     } > CM55M_S_APP_DATA
     
-        
+      
+    .ucHeap :
+    {
+        . = ALIGN(8);
+        *(.bss.ucHeap)
+    } > CM55M_S_SRAM
     
     
     /*

@@ -1,10 +1,10 @@
 override SCENARIO_APP_SUPPORT_LIST := $(APP_TYPE)
 
 APPL_DEFINES += -DSSCMA -DHIMAX_PLATFORM
-LIB_SEL = sscma_micro tflmtag2209_u55tag2205 spi_eeprom pwrmgmt sensordp
+LIB_SEL = sscma_micro tflmtag2209_u55tag2205 spi_eeprom pwrmgmt sensordp sensordp
 MID_SEL =
 
-override OS_SEL := freertos
+override OS_SEL := freertos_10_5_1
 override OS_HAL := n
 override MPU := n
 override TRUSTZONE := y
