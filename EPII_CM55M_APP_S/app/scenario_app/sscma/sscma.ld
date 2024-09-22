@@ -1,14 +1,14 @@
-#include "WE2_device_addr.h"
+  #include "WE2_device_addr.h"
 MEMORY
 {
   /* Define each memory region */
   CM55M_S_APP_ROM (rx) : ORIGIN = 0x10000000, LENGTH = 0x40000 /* 256K bytes  */  
   CM55M_S_APP_DATA (rwx) : ORIGIN = 0x30000000, LENGTH = 0x40000 /* 256K bytes*/ 
-  CM55M_S_SRAM (rwx) : ORIGIN = BOOT2NDLOADER_BASE, LENGTH = 0x00200000-(BOOT2NDLOADER_BASE-BASE_ADDR_SRAM0_ALIAS) /* 2M-0x1f000 bytes*/
+  CM55M_S_SRAM (rwx) : ORIGIN = BOOT2NDLOADER_BASE, LENGTH = 0x3416A000-BOOT2NDLOADER_BASE /* 2M-0x1f000 bytes*/
 }
 
-__HEAP_SIZE = 0x10000;
-__STACK_SIZE = 0x10000;
+__HEAP_SIZE = 0x4000;
+__STACK_SIZE = 0x4000;
 
 ENTRY(Reset_Handler)
 
@@ -37,6 +37,43 @@ SECTIONS
         __syscalls_flash_end__ = (. - 1);
         __unprivileged_flash_start__ = .;
     } > CM55M_S_APP_ROM
+
+    .ext_text :
+    {
+    //     . = ALIGN(4);
+    //     *libdriver.*:*(.text* .rodata*)
+
+        . = ALIGN(4);
+        *lib_i2c_comm.*:*(.text* .rodata*)
+
+        . = ALIGN(4);
+        *lib_img_proc.*:*(.text* .rodata*)
+
+        . = ALIGN(4);
+        *lib_spi_eeprom.*:*(.text* .rodata*)
+
+        . = ALIGN(4);
+        *lib_spi_psram.*:*(.text* .rodata*)
+
+        . = ALIGN(4);
+        *lib_spi_ptl.*:*(.text* .rodata*)
+
+        . = ALIGN(4);
+        *libaudio.*:*(.text* .rodata*)
+
+        . = ALIGN(4);
+        *libfatfs.*:*(.text* .rodata*)
+
+        . = ALIGN(4);
+        *libcommon.*:*(.text* .rodata*)
+
+        . = ALIGN(4);
+        *libtflmtag2209_u55tag2205_gnu.*:*(.text* .rodata*)
+
+        . = ALIGN(4);
+        *libsscma_micro.*:*(.text* .rodata*)
+
+    } > CM55M_S_APP_DATA
 
     .text : ALIGN(4)
     {
@@ -208,6 +245,8 @@ SECTIONS
        PROVIDE(__end_noinit_RAM = .) ;
        PROVIDE(__end_noinit_SRAM = .) ;        
     } > CM55M_S_APP_DATA
+
+   
 
     /* Reserve and place Heap within memory map */
   	.heap (COPY) :
