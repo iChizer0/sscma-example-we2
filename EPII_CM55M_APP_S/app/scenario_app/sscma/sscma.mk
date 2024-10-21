@@ -1,7 +1,7 @@
 override SCENARIO_APP_SUPPORT_LIST := $(APP_TYPE)
 
 APPL_DEFINES += -DSSCMA -DHIMAX_PLATFORM -DIP_xdma
-LIB_SEL = sscma_micro  tflmtag2209_u55tag2205 spi_eeprom pwrmgmt sensordp 
+LIB_SEL = sscma_micro_porting  tflmtag2209_u55tag2205 spi_eeprom pwrmgmt sensordp 
 MID_SEL =
 
 override OS_SEL := freertos_10_5_1

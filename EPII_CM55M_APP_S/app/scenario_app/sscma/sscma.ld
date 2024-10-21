@@ -71,7 +71,7 @@ SECTIONS
         *libtflmtag2209_u55tag2205_gnu.*:*(.text* .rodata*)
 
         . = ALIGN(4);
-        *libsscma_micro.*:*(.text* .rodata*)
+        *libsscma_micro_porting.*:*(.text* .rodata*)
 
     } > CM55M_S_APP_DATA
 
