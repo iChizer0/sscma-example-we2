@@ -1,7 +1,9 @@
 #ifndef _MA_BOARD_GROVE_VISION_AI_V2_H_
 #define _MA_BOARD_GROVE_VISION_AI_V2_H_
 
-#define MA_BOARD_NAME "Grove Vision AI V2"
+#define MA_BOARD_NAME       "Grove Vision AI V2"
+#define PRODUCT_NAME_PREFIX "grove_vision_ai"
+#define PRODUCT_NAME_SUFFIX "v2"
 
 #define MA_CAMERA_PWR_CTRL_INIT_F                               \
     {                                                           \

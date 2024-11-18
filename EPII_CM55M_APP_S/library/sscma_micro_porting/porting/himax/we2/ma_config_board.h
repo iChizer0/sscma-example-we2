@@ -60,6 +60,8 @@ extern "C" {
 #define MA_TFLITE_OP_MUL                   1
 #define MA_TFLITE_OP_BROADCAST_TO          1
 
+#define MA_CONFIG_OSAL_FREERTOS_USE_PII    1
+
 #define MA_INVOKE_ENABLE_RUN_HOOK          1
 
 #define MA_SENSOR_ENCODE_USE_STATIC_BUFFER 1

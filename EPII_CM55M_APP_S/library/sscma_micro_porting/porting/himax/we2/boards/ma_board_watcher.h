@@ -1,7 +1,9 @@
 #ifndef _MA_BOARD_WATCHER_H_
 #define _MA_BOARD_WATCHER_H_
 
-#define MA_BOARD_NAME "Watcher"
+#define MA_BOARD_NAME       "Watcher"
+#define PRODUCT_NAME_PREFIX "watcher"
+#define PRODUCT_NAME_SUFFIX "v1"
 
 #define MA_CAMERA_PWR_CTRL_INIT_F                               \
     {                                                           \
