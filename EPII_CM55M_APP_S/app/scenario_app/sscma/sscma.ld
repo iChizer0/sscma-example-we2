@@ -8,7 +8,7 @@ MEMORY
 }
 
 __HEAP_SIZE = 0x4000;
-__STACK_SIZE = 0x4000;
+__STACK_SIZE = 0x3000;
 
 ENTRY(Reset_Handler)
 
