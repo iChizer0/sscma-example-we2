@@ -4,3 +4,4 @@
 [submodule "EPII_CM55M_APP_S/library/sscma_micro"]
 	path = EPII_CM55M_APP_S/library/sscma_micro
 	url = https://github.com/Seeed-Studio/SSCMA-Micro
+	branch = main
