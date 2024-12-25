@@ -34,6 +34,7 @@ static void _uart_dma_recv(void*) {
     if (!_is_opened || !_rb_rx || !_rx_buf || !_uart) {
         return;
     }
+    SCB_CleanDCache_by_Addr(_rx_buf, 1);
     _rb_rx->push(_rx_buf, 1);
     _uart->uart_read_udma(_rx_buf, 1, reinterpret_cast<void*>(_uart_dma_recv));
 }

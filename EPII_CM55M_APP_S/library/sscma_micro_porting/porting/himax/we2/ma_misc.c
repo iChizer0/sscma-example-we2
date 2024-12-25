@@ -16,7 +16,7 @@ void* ma_calloc(size_t nmemb, size_t size) {
     return ptr;
 }
 
-void* ma_realloc(void* ptr, size_t size) { return pvPortRealloc(ptr, size); }
+void* ma_realloc(void* ptr, size_t size) { return NULL; }
 
 void ma_free(void* ptr) { vPortFree(ptr); }
 

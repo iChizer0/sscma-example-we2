@@ -15,6 +15,15 @@
 #include "ma_transport_i2c.h"
 #include "ma_transport_serial.h"
 
+void* operator new(size_t size) { return pvPortMalloc(size); }
+
+void* operator new[](size_t size) { return pvPortMalloc(size); }
+
+void operator delete(void* ptr) { vPortFree(ptr); }
+
+void operator delete[](void* ptr) { vPortFree(ptr); }
+
+
 namespace ma {
 
 Device::Device() {
@@ -52,7 +61,7 @@ Device::Device() {
         }
     }
 
-    MA_LOGD(MA_TAG, "Initializing storage");    
+    MA_LOGD(MA_TAG, "Initializing storage");
     {
         static ma_lfs_bd_cfg_t bd_config = {
             .read_size   = 16,

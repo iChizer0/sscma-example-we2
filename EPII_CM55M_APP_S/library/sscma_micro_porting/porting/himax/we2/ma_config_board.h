@@ -78,6 +78,8 @@ extern "C" {
 #define MA_SEVER_AT_EXECUTOR_STACK_SIZE    (20 * 1024)
 #define MA_SEVER_AT_EXECUTOR_TASK_PRIO     2
 
+#define MA_DEBUG_LEVEL                     1
+
 // #define MA_CONFIG_BOARD_I2C_SLAVE          1
 
 #endif  // _MA_CONFIG_BOARD_H_
