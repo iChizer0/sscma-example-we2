@@ -2,13 +2,13 @@
 MEMORY
 {
   /* Define each memory region */
-  CM55M_S_APP_ROM (rx) : ORIGIN = 0x10000000, LENGTH = 0x40000 /* 256K bytes  */  
-  CM55M_S_APP_DATA (rwx) : ORIGIN = 0x30000000, LENGTH = 0x40000 /* 256K bytes*/ 
+  CM55M_S_APP_ROM (rx) : ORIGIN = 0x10000000, LENGTH = 0x40000 /* 256K bytes  */
+  CM55M_S_APP_DATA (rwx) : ORIGIN = 0x30000000, LENGTH = 0x40000 /* 256K bytes*/
   CM55M_S_SRAM (rwx) : ORIGIN = BOOTLOADER_BASE, LENGTH = 0x3416A000-BOOTLOADER_BASE /* 2M-0x1f000 bytes*/
 }
 
 __HEAP_SIZE = 0x4000;
-__STACK_SIZE = 0x3000;
+__STACK_SIZE = 0x1000;
 
 ENTRY(Reset_Handler)
 
@@ -83,7 +83,7 @@ SECTIONS
        KEEP(*(.init))
 
        KEEP(*(.fini));
-            
+
     	/* .ctors */
     	*crtbegin.o(.ctors)
     	*crtbegin?.o(.ctors)
@@ -98,42 +98,42 @@ SECTIONS
     	*(SORT(.dtors.*))
     	*(.dtors)
         . = ALIGN(4);
-        
+
         KEEP(*(.eh_frame*))
     } > CM55M_S_APP_ROM
-    
+
     .pic : ALIGN(4)
     {
   		* (.bss.raw_data)
   		* (.bss.jpg_data)
-  		* (.bss.jpg_info_data)      
+  		* (.bss.jpg_info_data)
     } > CM55M_S_SRAM
-    
+
     .algo : ALIGN(0x100)
     {
     	* (.bss.tensor_arena)
     } > CM55M_S_SRAM
-    
+
     .model : ALIGN(4)
     {
-    	* (.rodata.g_person_detect_model_data_vela) 
+    	* (.rodata.g_person_detect_model_data_vela)
     } > CM55M_S_SRAM
-    
+
     .rodata : ALIGN(4)
     {
         __rodata_start = .;
         *(.rodata .rodata.* .constdata .constdata.*)
         __rodata_end = .;
     } > CM55M_S_APP_DATA
-    
-      
+
+
     .ucHeap :
     {
         . = ALIGN(8);
         *(.bss.ucHeap)
     } > CM55M_S_SRAM
-    
-    
+
+
     /*
      * for exception handling/unwind - some Newlib functions (in common
      * with C++ and STDC++) use this.
@@ -149,37 +149,37 @@ SECTIONS
         *(.ARM.exidx* .gnu.linkonce.armexidx.*)
         __exidx_end = .;
     } > CM55M_S_APP_ROM
-            
+
 	  .copy.table :
 	  {
 	    . = ALIGN(4);
 	    __copy_table_start__ = .;
-	
+
         LONG(LOADADDR(.data));
         LONG(    ADDR(.data));
         LONG(  SIZEOF(.data)/4);
-	
+
 	    /* Add each additional data section here */
 	    __copy_table_end__ = .;
 	  } > CM55M_S_APP_ROM
-              
+
 	  .zero.table :
 	  {
 	    . = ALIGN(4);
 	    __zero_table_start__ = .;
 	    /* Add each additional bss section here */
         LONG(    ADDR(.bss));
-        LONG(  SIZEOF(.bss)/4);    
+        LONG(  SIZEOF(.bss)/4);
 	    __zero_table_end__ = .;
 	  } > CM55M_S_APP_ROM
-                
+
      . = ALIGN(32);
     __unprivileged_flash_end__ = (. - 1);
   /**
    * Location counter can end up 2byte aligned with narrow Thumb code but
    * __etext is assumed by startup code to be the LMA of a section in RAM
    * which must be 4byte aligned
-   */      
+   */
     /* Main DATA section (BOOTROM_SRAM) */
     .data : ALIGN(4)
     {
@@ -243,10 +243,10 @@ SECTIONS
          . = ALIGN(4) ;
         _end_noinit = .;
        PROVIDE(__end_noinit_RAM = .) ;
-       PROVIDE(__end_noinit_SRAM = .) ;        
+       PROVIDE(__end_noinit_SRAM = .) ;
     } > CM55M_S_APP_DATA
 
-   
+
 
     /* Reserve and place Heap within memory map */
   	.heap (COPY) :
@@ -258,28 +258,28 @@ SECTIONS
     	. = . + __HEAP_SIZE;
     	. = ALIGN(8);
     	__HeapLimit = .;
-    	PROVIDE(__HeapLimit = .);    	
+    	PROVIDE(__HeapLimit = .);
   	} > CM55M_S_APP_DATA
-  
+
     /* Locate actual Stack in memory map */
   	.stack (ORIGIN(CM55M_S_APP_DATA) + LENGTH(CM55M_S_APP_DATA) - __STACK_SIZE) (COPY) :
   	{
     	. = ALIGN(8);
     	__StackLimit = .;
-    	PROVIDE(__StackLimit = .);      	
+    	PROVIDE(__StackLimit = .);
     	. = . + __STACK_SIZE;
     	. = ALIGN(8);
     	__StackTop = .;
-    	PROVIDE(__StackTop = .);     	
+    	PROVIDE(__StackTop = .);
   	} > CM55M_S_APP_DATA
 
-    
-    
+
+
   	PROVIDE(__stack = __StackTop);
 
   	/* Check if data + heap + stack exceeds RAM limit */
   	ASSERT(__StackLimit >= __HeapLimit, "region RAM overflowed with stack")
-  
+
     /* Provide basic symbols giving location and size of main text
      * block, including initial values of RW data sections. Note that
      * these will need extending to give a complete picture with
